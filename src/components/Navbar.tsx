@@ -22,14 +22,6 @@ function Navbar( props: NavbarProps ) {
 				<Link to="/tools">
 					{RenderNavLink.bind( null, 'Tools', store.theme )}
 				</Link>
-				{/*
-				<li>
-					<NavItem to="/">Home</NavItem>
-				</li>
-				<li>
-					<NavItem to="/tools">Tools</NavItem>
-				</li>
-				*/}
 			</NavList>
 			<Match pattern="/" exactly render={() => (
 				<Redirect to="/home"/>

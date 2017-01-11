@@ -2,7 +2,6 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
 import Store from '../stores/Store';
-import { Theme } from '../themes/Theme';
 import { Container } from './Primitives';
 import Navbar from './Navbar';
 
@@ -21,10 +20,10 @@ function Header( props: HeaderProps ) {
 	);
 }
 
+export default inject( 'store' )( observer( Header ) );
+
 const StyledHeader = styled.header`
 	background: ${props => props.theme.color.primary.toCss()};
 	padding: ${props => props.theme.sizing.gutter}px 0;
 	margin-bottom: ${props => props.theme.sizing.gutter};
 `;
-
-export default inject( 'store' )( observer( Header ) );

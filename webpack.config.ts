@@ -1,0 +1,60 @@
+const path = require( 'path' );
+const webpack = require( 'webpack' );
+
+module.exports = {
+	context: path.resolve( __dirname, './src' ),
+	entry: {
+  		devServer: 'webpack-dev-server/client?http://0.0.0.0:3000',
+		hot: 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+		app: './index.tsx'
+	},
+	module: {
+		rules: [
+			{
+				test: /\.tsx?$/,
+				use: [
+					{
+						loader: 'react-hot-loader'
+					},
+					{
+						loader: 'awesome-typescript-loader',
+					}
+				],
+				include: path.join( __dirname, 'src' )
+			},
+			{
+				test: /\.css$/,
+				use: [
+					'style-loader',
+					'css-loader'
+				]
+			}
+		],
+	},
+	resolve: {
+		extensions: [
+			'.ts',
+			'.tsx',
+			'.js',
+			'.jsx'
+		],
+		modules: [
+			path.resolve( __dirname, './src' ),
+			'node_modules'
+		]
+	},
+	output: {
+		path: path.resolve( __dirname, './dist' ),
+		filename: '[name].bundle.js',
+	},
+	plugins: [
+		new webpack.HotModuleReplacementPlugin()
+	],
+	devServer: {
+		contentBase: path.resolve( __dirname, './dist' ),
+		inline: true,
+		hot: true,
+		stats: 'errors-only',
+		historyApiFallback: true
+	}
+};

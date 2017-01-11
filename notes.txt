@@ -1,0 +1,20 @@
+Tech:
+Yarn - done
+Webpack 2 - done
+TypeScript - done
+MobX - done
+React - done
+Styled-Components - done - syntax highlighting?
+React Router v4 - done
+Jest
+Enzyme
+Tslint - researched a little, install tslint and tslint-react
+
+tslint.json:
+{
+  "extends": ["tslint:latest", "tslint-react"],
+  "rules": {
+    // enable tslint-react rules here
+    "jsx-no-lambda": true
+  }
+}

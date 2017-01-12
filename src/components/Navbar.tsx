@@ -16,46 +16,47 @@ function Navbar( props: NavbarProps ) {
 	return (
 		<Nav theme={store.theme}>
 			<NavList theme={store.theme}>
-				<Link to="/home" exactly>
-					{RenderNavLink.bind( null, 'Home', store.theme )}
+				<Link to="/" exactly activeOnlyWhenExact>
+					{props => <NavLink {...props}>Home</NavLink>}
 				</Link>
 				<Link to="/tools">
-					{RenderNavLink.bind( null, 'Tools', store.theme )}
+					{props => <NavLink {...props}>Tools</NavLink>}
 				</Link>
 			</NavList>
-			<Match pattern="/" exactly render={() => (
-				<Redirect to="/home"/>
-			)}/>
-			<ThemeSelect alignRight={true} />
+			<ThemeSelect />
 		</Nav>
 	);
 }
 
-function RenderNavLink(
-	text: string,
-	theme: Theme,
-	inheritedProps: {
-		href: string,
-		onClick: EventHandler<MouseEvent<HTMLAnchorElement>>,
-		isActive: boolean
-	}
-) {
-	const {
-		href,
-		onClick,
-		isActive
-	} = inheritedProps;
-	return (
-		<StyledLink
-			isActive={isActive}
-			theme={theme}
-			onClick={onClick}
-			href={href}
-		>
-			{text}
-		</StyledLink>
-	);
+interface NavLinkProps {
+	store?: Store;
+	children: any;
+	href: string;
+	onClick: EventHandler<MouseEvent<HTMLAnchorElement>>;
+	isActive: boolean;
 }
+
+const NavLink = inject( 'store' )( observer(
+	( props: NavLinkProps ) => {
+		const {
+			store,
+			children,
+			href,
+			onClick,
+			isActive
+		} = props;
+		return (
+			<StyledLink
+				isActive={isActive}
+				theme={store.theme}
+				onClick={onClick}
+				href={href}
+			>
+				{children}
+			</StyledLink>
+		);
+	}
+));
 
 const Nav = styled.nav`
 	color: ${props => props.theme.color.secondaryFont.toCss()};

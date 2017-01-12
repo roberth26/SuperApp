@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import styled from 'styled-components';
 import Store from '../stores/Store';
 import { Theme } from '../themes/Theme';
 import Midnight from '../themes/Midnight';
@@ -11,19 +10,17 @@ const themes = new Array<Theme>(
 	new Daylight()
 );
 
-interface ThemeSelectParams {
-	alignRight?: boolean;
+interface ThemeSelectProps {
 	store?: Store;
 }
 
-function ThemeSelect( props: ThemeSelectParams ) {
-	const { store, alignRight } = props;
+function ThemeSelect( { store }: ThemeSelectProps ) {
+	const { theme } = store;
 	const activeTheme = themes.findIndex( theme => (
 		theme.constructor.name === store.theme.constructor.name
 	));
 	return (
-		<Select
-			alignRight={alignRight}
+		<select
 			value={activeTheme}
 			onChange={event => {
 				const select = ( event.nativeEvent.target as HTMLInputElement );
@@ -38,12 +35,8 @@ function ThemeSelect( props: ThemeSelectParams ) {
 					{theme.constructor.name}
 				</option>
 			))}
-		</Select>
+		</select>
 	);
 }
-
-const Select = styled.select`
-	// some select styles
-`;
 
 export default inject( 'store' )( observer( ThemeSelect ) );

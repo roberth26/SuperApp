@@ -15,7 +15,7 @@ export default class Color {
 		this.blue = blue;
 	}
 
-	toArray(): Array<number> {
+	toArray(): number[] {
 		return new Array<number>(
 			this.red,
 			this.green,

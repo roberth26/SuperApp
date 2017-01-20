@@ -1,40 +1,36 @@
 import * as React from 'react';
+import { SyntheticEvent, FormEvent } from '@types/react';
 import { inject, observer } from 'mobx-react';
 import Store from '../stores/Store';
 import { Theme } from '../themes/Theme';
-import Midnight from '../themes/Midnight';
-import Daylight from '../themes/Daylight';
-
-const themes = new Array<Theme>(
-	new Midnight(),
-	new Daylight()
-);
 
 interface ThemeSelectProps {
 	store?: Store;
 }
 
 function ThemeSelect( { store }: ThemeSelectProps ) {
-	const { theme } = store;
-	const activeTheme = themes.findIndex( theme => (
-		theme.constructor.name === store.theme.constructor.name
+	const { activeTheme, themes } = store;
+	const activeThemeIndex = themes.findIndex( theme => (
+		theme.constructor.name === activeTheme.constructor.name
+	));
+	const handleChange = ( event: FormEvent<HTMLSelectElement> ) => {
+		const select = ( event.nativeEvent.target as HTMLInputElement );
+		store.setActiveTheme( themes[ select.value ] );
+	};
+	const themeOptions = themes.map( ( theme, index ) => (
+		<option
+			value={index}
+			key={theme.constructor.name}
+		>
+			{theme.constructor.name}
+		</option>
 	));
 	return (
 		<select
-			value={activeTheme}
-			onChange={event => {
-				const select = ( event.nativeEvent.target as HTMLInputElement );
-				store.setTheme( themes[ select.value ] );
-			}}
+			value={activeThemeIndex}
+			onChange={handleChange}
 		>
-			{themes.map( ( theme, index ) => (
-				<option
-					value={index}
-					key={theme.constructor.name}
-				>
-					{theme.constructor.name}
-				</option>
-			))}
+			{themeOptions}
 		</select>
 	);
 }

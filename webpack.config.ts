@@ -11,6 +11,16 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.ts[x]?$/,
+				enforce: 'pre',
+				use: [
+					{
+						loader: 'tslint-loader',
+
+					}
+				]
+			},
+			{
 				test: /\.tsx?$/,
 				use: [
 					{
@@ -48,13 +58,23 @@ module.exports = {
 		filename: '[name].bundle.js',
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
+	    new webpack.LoaderOptionsPlugin({
+	        options: {
+	            tslint: {
+	                emitErrors: true,
+	                failOnHint: true,
+	                exclude: /(node_modules)/
+	            }
+	        }
+	    })
 	],
 	devServer: {
 		contentBase: path.resolve( __dirname, './dist' ),
 		inline: true,
 		hot: true,
 		stats: 'errors-only',
-		historyApiFallback: true
+		historyApiFallback: true,
+		port: 3000
 	}
 };

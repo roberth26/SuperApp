@@ -12,7 +12,7 @@ interface HeaderProps {
 function Header( props: HeaderProps ) {
 	const { store } = props;
 	return (
-		<StyledHeader theme={store.theme}>
+		<StyledHeader theme={store.activeTheme}>
 			<Container>
 				<Navbar />
 			</Container>

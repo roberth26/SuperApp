@@ -17,7 +17,7 @@ export default class Daylight implements Theme {
 	sizing = {
 		borderBox: true,
 		gutter: 30,
-		maxWidth: 640
+		maxWidth: 720
 	};
 
 	font = {

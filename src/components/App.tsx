@@ -5,32 +5,49 @@ import { Match, Miss, Link, BrowserRouter } from 'react-router';
 import { Theme } from '../themes/Theme';
 import Store from '../stores/Store';
 import Header from './Header';
-import HomePage from '../pages/HomePage';
-import ToolsPage from '../pages/ToolsPage';
+import { Card, Container } from './Primitives';
+import User from '../data-types/User';
+import UserPage from './UserPage';
 
 interface AppProps {
 	store?: Store;
 }
+
+const renderUserPage = ( user: User ) => (
+	<UserPage user={user} />
+);
 
 @inject( 'store' )
 @observer
 class App extends React.Component<AppProps, any> {
 	render() {
 		const { store } = this.props;
-	    return (
+		const userPage = store.users.map( ( user: User, index: number ) => {
+			if ( index === 0 ) {
+				return (
+					<Match
+						pattern="/"
+						exactly
+						render={renderUserPage.bind( null, user )}
+						key={user.getId()}
+					/>
+				);
+			}
+			return (
+				<Match
+					pattern={`/${user.getNameUrlFriendly()}`}
+					render={renderUserPage.bind( null, user )}
+					key={user.getId()}
+				/>
+			);
+		});
+		return (
 	   		<BrowserRouter>
-		    	<Wrapper theme={store.theme}>
+		    	<Wrapper theme={store.activeTheme}>
 		    		<GlobalStyles />
 		    		<Header />
-		    		<Match pattern="/" exactly render={() => (
-		    			<HomePage />
-					)} />
-		    		<Match pattern="/tools" render={() => (
-		    			<ToolsPage />
-					)} />
-		    		<Miss render={() => (
-		    			<HomePage />
-					)} />
+					{userPage}
+					<Miss render={renderUserPage.bind( null, store.users[ 0 ] )} />
 	    		</Wrapper>
 	    	</BrowserRouter>
 	    );
@@ -48,10 +65,10 @@ const Wrapper = styled.div`
 	background-color: ${props => props.theme.color.background.toCss()};
 `;
 
-const GlobalStyles = inject( 'store' )( observer( 
-	( { store }: { store?: Store } ) => (
-		<style>{`
-			${!store.theme.sizing.borderBox ? '' : `
+const GlobalStyles = inject( 'store' )( observer(
+	( { store }: { store?: Store } ) => {
+		const css = `
+			${!store.activeTheme.sizing.borderBox ? '' : `
 				*,
 				*:before,
 				*:after {
@@ -60,8 +77,9 @@ const GlobalStyles = inject( 'store' )( observer(
 			`}
 			
 			html {
-				font-family: ${store.theme.font.primary};
+				font-family: ${store.activeTheme.font.primary};
 			}
-		`}</style>
-	)
+		`;
+		return <style>{css}</style>;
+	}
 ));

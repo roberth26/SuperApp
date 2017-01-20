@@ -17,10 +17,10 @@ export default class Midnight implements Theme {
 	sizing = {
 		borderBox: false,
 		gutter: 20,
-		maxWidth: 920
+		maxWidth: 940
 	};
 
 	font = {
 		primary: 'verdana'
-	}
+	};
 };

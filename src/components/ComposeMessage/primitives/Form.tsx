@@ -27,7 +27,7 @@ interface FormProps {
     children?: any;
 }
 
-export const Form = inject( 'store' )( observer(
+export default inject( 'store' )( observer(
     ( { store, onSubmit, children }: FormProps ) => (
         <StyledForm
             theme={store.activeTheme}

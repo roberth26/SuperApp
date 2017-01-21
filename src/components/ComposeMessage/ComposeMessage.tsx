@@ -5,9 +5,9 @@ import { observer, inject } from 'mobx-react';
 import { Theme } from '../../themes/Theme';
 import Store from '../../stores/Store';
 import User from '../../data-types/User';
-import { Input } from './primitives/Input';
-import { Button } from './primitives/Button';
-import { Form } from './primitives/Form';
+import Input from './primitives/Input';
+import Button from './primitives/Button';
+import Form from './primitives/Form';
 
 interface ComposeMessageProps {
     store?: Store;

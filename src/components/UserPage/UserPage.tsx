@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ReactElement } from '@types/react';
-import { Card, Container } from '../components/Primitives';
-import User from '../data-types/User';
-import Chat from './Chat';
+import Card from '../primitives/Card';
+import Container from '../primitives/Container';
+import User from '../../data-types/User';
+import Chat from '../Chat/Chat';
 
 interface UserPageProps {
 	user: User;

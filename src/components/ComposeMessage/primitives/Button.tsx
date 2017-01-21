@@ -21,7 +21,7 @@ interface ButtonProps {
     type: string;
 }
 
-export const Button = inject( 'store' )( observer(
+export default inject( 'store' )( observer(
     ( { store, type, children }: ButtonProps ) => (
         <StyledButton
             type={type}

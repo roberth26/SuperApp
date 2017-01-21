@@ -2,12 +2,15 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { observer, inject } from 'mobx-react';
 import { Match, Miss, Link, BrowserRouter } from 'react-router';
-import { Theme } from '../themes/Theme';
-import Store from '../stores/Store';
-import Header from './Header';
-import { Card, Container } from './Primitives';
-import User from '../data-types/User';
-import UserPage from './UserPage';
+import { Theme } from '../../themes/Theme';
+import Store from '../../stores/Store';
+import Header from '../Header/Header';
+import Card from '../primitives/Card';
+import Container from '../primitives/Card';
+import User from '../../data-types/User';
+import UserPage from '../UserPage/UserPage';
+import Wrapper from './primitives/Wrapper';
+import GlobalStyles from './primitives/GlobalStyles';
 
 interface AppProps {
 	store?: Store;
@@ -60,34 +63,3 @@ class App extends React.Component<AppProps, any> {
 }
 
 export default App;
-
-const Wrapper = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: ${props => props.theme.color.background.toCss()};
-`;
-
-const GlobalStyles = inject( 'store' )( observer(
-	( { store }: { store?: Store } ) => {
-		const css = `
-			${!store.activeTheme.sizing.borderBox ? '' : `
-				*,
-				*:before,
-				*:after {
-					box-sizing: border-box;		
-				}
-			`}
-			
-			html,
-			* {
-				font-family: ${store.activeTheme.font.primary};
-				font-size: 14px;
-				line-height: 1.5;
-			}
-		`;
-		return <style>{css}</style>;
-	}
-));

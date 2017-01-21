@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 import { Theme } from '../../../themes/Theme';
 import Store from '../../../stores/Store';
 
-const StyledInput = styled.input`
+const Input = styled.input`
     appearance: none;
     border: 0;
     background-color: ${props => props.theme.color.background.toCss()};
@@ -32,14 +32,12 @@ interface InputProps {
     onKeyDown: ( event: KeyboardEvent ) => void;
 }
 
-export const Input = inject( 'store' )( observer(
-    ( { store, value, onChange, onKeyDown }: InputProps ) => (
-        <StyledInput
-            theme={store.activeTheme}
-            value={value}
+export default inject( 'store' )( observer(
+    ( props: InputProps ) => (
+        <Input
+            {...props}
+            theme={props.store.activeTheme}
             placeholder="Compose a message..."
-            onChange={onChange}
-            onKeyDown={onKeyDown}
         />
     )
 ));

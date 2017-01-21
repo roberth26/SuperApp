@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
 import 'reset-css/reset.css';
 import Store from './stores/Store';
-import App from './components/App';
+import App from './components/App/App';
 
 const store = new Store();
 

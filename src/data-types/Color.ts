@@ -27,4 +27,8 @@ export default class Color {
 		const color = ColorUtils.rgb( this.toArray() );
 		return hsl ? color.hsl().string() :	color.string();
 	}
+
+	static fromArray( arr: number[] ): Color {
+		return new Color( arr[ 0 ], arr[ 1 ], arr[ 2] );
+	}
 }

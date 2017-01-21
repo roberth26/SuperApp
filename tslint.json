@@ -31,6 +31,9 @@
     ],
     "member-ordering": [
       false
+    ],
+    "one-variable-per-declaration": [
+      false
     ]
   }
 }

@@ -17,12 +17,12 @@ function ThemeSelect( { store }: ThemeSelectProps ) {
 		const select = ( event.nativeEvent.target as HTMLInputElement );
 		store.setActiveTheme( themes[ select.value ] );
 	};
-	const themeOptions = themes.map( ( theme, index ) => (
+	const themeOptions = themes.map( ( theme: Theme, index: number ) => (
 		<option
 			value={index}
-			key={theme.constructor.name}
+			key={theme.id}
 		>
-			{theme.constructor.name}
+			{theme.name}
 		</option>
 	));
 	return (

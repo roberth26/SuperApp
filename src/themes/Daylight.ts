@@ -1,7 +1,16 @@
+import * as Shortid from 'shortid';
 import { Theme } from './Theme';
 import Color from '../data-types/Color';
 
 export default class Daylight implements Theme {
+	id: string;
+	name: string;
+
+	constructor() {
+		this.id = Shortid.generate();
+		this.name = 'Daylight';
+	}
+
 	color = {
 		background: new Color( 220, 220, 220 ),
 		primary: new Color( 0, 77, 155 ),

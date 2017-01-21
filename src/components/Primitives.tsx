@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 import Store from '../stores/Store';
-import Midnight from '../themes/Midnight';
 
 interface PrimitiveProps {
 	store?: Store;

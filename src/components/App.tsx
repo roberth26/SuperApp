@@ -14,7 +14,9 @@ interface AppProps {
 }
 
 const renderUserPage = ( user: User ) => (
-	<UserPage user={user} />
+	user
+	? <UserPage user={user} />
+	: null
 );
 
 @inject( 'store' )
@@ -22,32 +24,35 @@ const renderUserPage = ( user: User ) => (
 class App extends React.Component<AppProps, any> {
 	render() {
 		const { store } = this.props;
-		const userPage = store.users.map( ( user: User, index: number ) => {
-			if ( index === 0 ) {
+		let userPage = null;
+		if ( store.users.length ) {
+			userPage = store.users.map( ( user: User, index: number ) => {
+				if ( index === 0 ) {
+					return (
+						<Match
+							pattern="/"
+							exactly
+							render={renderUserPage.bind( null, user )}
+							key={user.getId()}
+						/>
+					);
+				}
 				return (
 					<Match
-						pattern="/"
-						exactly
+						pattern={`/${user.getNameUrlFriendly()}`}
 						render={renderUserPage.bind( null, user )}
 						key={user.getId()}
 					/>
 				);
-			}
-			return (
-				<Match
-					pattern={`/${user.getNameUrlFriendly()}`}
-					render={renderUserPage.bind( null, user )}
-					key={user.getId()}
-				/>
-			);
-		});
+			});
+		}
 		return (
 	   		<BrowserRouter>
 		    	<Wrapper theme={store.activeTheme}>
 		    		<GlobalStyles />
 		    		<Header />
 					{userPage}
-					<Miss render={renderUserPage.bind( null, store.users[ 0 ] )} />
+					<Miss render={renderUserPage.bind( null, store.users ? store.users[ 0 ] : null )} />
 	    		</Wrapper>
 	    	</BrowserRouter>
 	    );
@@ -72,12 +77,15 @@ const GlobalStyles = inject( 'store' )( observer(
 				*,
 				*:before,
 				*:after {
-					box-sizing: border-box;					
+					box-sizing: border-box;		
 				}
 			`}
 			
-			html {
+			html,
+			* {
 				font-family: ${store.activeTheme.font.primary};
+				font-size: 14px;
+				line-height: 1.5;
 			}
 		`;
 		return <style>{css}</style>;

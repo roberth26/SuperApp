@@ -8,6 +8,8 @@ module.exports = {
 		hot: 'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
 		app: './index.tsx'
 	},
+	devtool: 'eval',
+	//devtool: 'cheap-module-source-map',
 	module: {
 		rules: [
 			{
@@ -67,7 +69,19 @@ module.exports = {
 	                exclude: /(node_modules)/
 	            }
 	        }
-	    })
+	    }),
+		/*
+		new webpack.DefinePlugin({
+			'process.env': {
+				'NODE_ENV': JSON.stringify( 'production' )
+			}
+		}),
+		new webpack.optimize.UglifyJsPlugin({
+		    compress: {
+		        warnings: false
+		    }
+		})
+		*/
 	],
 	devServer: {
 		contentBase: path.resolve( __dirname, './dist' ),

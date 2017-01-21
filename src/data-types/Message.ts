@@ -7,9 +7,11 @@ export default class Message {
     private date: Date;
     private text: string;
 
-    constructor( author: User, text: string ) {
-        this.author = author;
+    constructor( text: string, author?: User ) {
         this.text = text;
+        if ( author ) {
+            this.author = author;
+        }
         this.id = Shortid.generate();
         this.date = new Date();
     }
@@ -29,4 +31,21 @@ export default class Message {
     public getText(): string {
         return this.text;
     }
+
+    static fromJson( json: MessageJson ): ( author: User ) => Message {
+        const message = new Message( json.text );
+        message.date = new Date( json.date );
+        message.id = json.id;
+        return ( author: User ) => {
+            message.author = author;
+            return message;
+        };
+    }
+}
+
+export interface MessageJson {
+    id: string;
+    authorId: string;
+    date: string;
+    text: string;
 }

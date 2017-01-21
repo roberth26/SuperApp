@@ -3,40 +3,22 @@ import {
 	useStrict,
 	action
 } from 'mobx';
-import { Theme } from '../themes/Theme';
-import Midnight from '../themes/Midnight';
+import Axios from 'axios';
+import { Theme, themeFromJson, ThemeJson } from '../themes/Theme';
 import Daylight from '../themes/Daylight';
-import User from '../data-types/User';
-import Message from '../data-types/Message';
+import User, { UserJson } from '../data-types/User';
+import Message, { MessageJson } from '../data-types/Message';
 
 useStrict( true );
 
 export default class Store {
-	@observable users: User[];
-	@observable messages: Message[];
-	@observable activeTheme = new Midnight();
-	@observable themes = [
-		new Midnight(),
-		new Daylight()
-	];
+	@observable users = new Array<User>();
+	@observable messages = new Array<Message>();
+	@observable activeTheme = new Daylight();
+	@observable themes = new Array<Theme>( new Daylight() );
 
 	constructor() {
-		const donald = new User( 'Donald Trump' );
-		const meryl = new User( 'Meryl Streep' );
-
-		this.users = new Array<User>(
-			donald,
-			meryl,
-			new User( 'Robert Hall' )
-		);
-
-		const message1 = new Message( donald, 'Overrated! Sad.' );
-		const message2 = new Message( meryl, 'You\'re a pig.' );
-
-		this.messages = new Array<Message>(
-			message1,
-			message2
-		);
+		this.fetchData();
 	}
 
 	@action setActiveTheme = ( theme: Theme ) => {
@@ -44,7 +26,34 @@ export default class Store {
 	}
 
 	@action addMessage( messageText: string, author: User ) {
-		const message = new Message( author, messageText );
+		const message = new Message( messageText, author );
 		this.messages.push( message );
+	}
+
+	@action fetchData() {
+		Axios.all([
+			Axios.get( 'data/users.json' ),
+			Axios.get( 'data/messages.json' ),
+			Axios.get( 'data/themes.json' )
+		]).then( Axios.spread( action( ( users: any, messages: any, themes: any ) => {
+			users = users.data as UserJson[];
+			this.users = this.users.concat(
+				users.map( ( user: UserJson ) => User.fromJson( user ) )
+			);
+
+			messages = messages.data as MessageJson[];
+			this.messages = this.messages.concat(
+				messages.map( ( message: MessageJson ) => (
+					Message.fromJson( message )(
+						this.users.find( user => user.getId() === message.authorId )
+					)
+				))
+			);
+
+			themes = themes.data as ThemeJson[];
+			this.themes = this.themes.concat(
+				themes.map( ( theme: ThemeJson ) => themeFromJson( theme ) )
+			);
+		})));
 	}
 }

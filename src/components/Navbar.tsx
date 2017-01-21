@@ -8,50 +8,6 @@ import { Theme } from '../themes/Theme';
 import ThemeSelect from './ThemeSelect';
 import User from '../data-types/User';
 
-const renderUserPageLink = ( user: User, props ) => (
-	<NavLink {...props}>
-		{user.getName()}
-	</NavLink>
-);
-
-interface NavbarProps {
-	store?: Store;
-}
-
-function Navbar( props: NavbarProps ) {
-	const { store } = props;
-	const navLinks = store.users.map( ( user: User, index: number ) => {
-		if ( index === 0 ) {
-			return (
-				<Link
-					to="/"
-					exactly
-					activeOnlyWhenExact
-					key={user.getId()}
-				>
-					{renderUserPageLink.bind( null, user )}
-				</Link>
-			);
-		}
-		return (
-			<Link
-				to={`/${user.getNameUrlFriendly()}`}
-				key={user.getId()}
-			>
-				{renderUserPageLink.bind( null, user )}
-			</Link>
-		);
-	});
-	return (
-		<Nav theme={store.activeTheme}>
-			<NavList theme={store.activeTheme}>
-				{navLinks}
-			</NavList>
-			<ThemeSelect />
-		</Nav>
-	);
-}
-
 interface NavLinkProps {
 	store?: Store;
 	children: any;
@@ -70,14 +26,16 @@ const NavLink = inject( 'store' )( observer(
 			isActive
 		} = props;
 		return (
-			<StyledLink
-				isActive={isActive}
-				theme={store.activeTheme}
-				onClick={onClick}
-				href={href}
-			>
-				{children}
-			</StyledLink>
+			<li>
+				<StyledLink
+					isActive={isActive}
+					theme={store.activeTheme}
+					onClick={onClick}
+					href={href}
+				>
+					{children}
+				</StyledLink>
+			</li>
 		);
 	}
 ));
@@ -89,8 +47,11 @@ const Nav = styled.nav`
 `;
 
 const NavList = styled.ul`
+	display: flex;
+	align-items: center;
+
 	li {
-		display: inline;
+		display: inline-block;
 		margin-right: ${props => props.theme.sizing.gutter}px;
 	}
 `;
@@ -98,8 +59,54 @@ const NavList = styled.ul`
 const StyledLink = styled.a`
 	color: ${props => props.theme.color.secondaryFont.toCss()};
 	opacity: ${props => props.isActive ? 1 : .65};
-	margin-right: ${props => props.theme.sizing.gutter}px;
 	text-decoration: none;
 `;
+
+const renderUserPageLink = ( user: User, props ) => (
+	<NavLink {...props}>
+		{user.getName()}
+	</NavLink>
+);
+
+interface NavbarProps {
+	store?: Store;
+}
+
+function Navbar( props: NavbarProps ) {
+	const { store } = props;
+	let navLinks = null;
+	if ( store.users.length ) {
+		navLinks = store.users.map( ( user: User, index: number ) => {
+			if ( index === 0 ) {
+				return (
+					<Link
+						to="/"
+						exactly
+						activeOnlyWhenExact
+						key={user.getId()}
+					>
+						{renderUserPageLink.bind( null, user )}
+					</Link>
+				);
+			}
+			return (
+				<Link
+					to={`/${user.getNameUrlFriendly()}`}
+					key={user.getId()}
+				>
+					{renderUserPageLink.bind( null, user )}
+				</Link>
+			);
+		});
+	}
+	return (
+		<Nav theme={store.activeTheme}>
+			<NavList theme={store.activeTheme}>
+				{navLinks}
+			</NavList>
+			<ThemeSelect />
+		</Nav>
+	);
+}
 
 export default inject( 'store' )( observer( Navbar ) );

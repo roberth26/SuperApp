@@ -1,0 +1,24 @@
+[
+    {
+        "id": "H1F7Z-NxDg",
+        "name": "Midnight",
+        "color": {
+            "background": [ 40, 40, 40 ],
+            "primary": [ 255, 180, 0 ],
+            "secondary": [ 60, 60, 60 ],
+            "font": [ 220, 220, 220 ],
+            "secondaryFont": [ 0, 0, 0 ]
+        },
+        "shading": {
+            "boxShadow": "0 1px 4px rgba( 0, 0, 0, .4 )"
+        },
+        "sizing": {
+            "borderBox": false,
+            "gutter": 20,
+            "maxWidth": 940
+        },
+        "font": {
+            "primary": "verdana"
+        }
+    }
+]

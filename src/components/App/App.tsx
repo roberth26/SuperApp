@@ -12,15 +12,15 @@ import UserPage from '../UserPage/UserPage';
 import Wrapper from './primitives/Wrapper';
 import GlobalStyles from './primitives/GlobalStyles';
 
-interface AppProps {
-	store?: Store;
-}
-
 const renderUserPage = ( user: User ) => (
 	user
 	? <UserPage user={user} />
 	: null
 );
+
+interface AppProps {
+	store?: Store;
+}
 
 @inject( 'store' )
 @observer

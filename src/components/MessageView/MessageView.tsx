@@ -1,9 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import { observer, inject } from 'mobx-react';
 import * as Moment from 'moment';
-import { Theme } from '../../themes/Theme';
-import Store from '../../stores/Store';
 import Message from '../../data-types/Message';
 import User from '../../data-types/User';
 import TimeStamp from './primitives/TimeStamp';
@@ -16,10 +12,13 @@ interface MessageViewProps {
 
 export default function MessageView( { message, author }: MessageViewProps ) {
     const isAuthor = message.getAuthor() === author;
+
     const name = isAuthor
         ? null
         : message.getAuthor().getName().split( ' ' )[ 0 ];
+
     const date = Moment( message.getDate() ).format( 'h:mma' );
+
     return (
         <div>
             <TimeStamp isAuthor={isAuthor}>

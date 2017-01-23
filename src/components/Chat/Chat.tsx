@@ -1,7 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
 import { observer, inject } from 'mobx-react';
-import { Theme } from '../../themes/Theme';
 import Store from '../../stores/Store';
 import Message from '../../data-types/Message';
 import User from '../../data-types/User';

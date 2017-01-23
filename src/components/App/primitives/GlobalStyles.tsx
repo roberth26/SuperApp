@@ -1,7 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import { observer, inject } from 'mobx-react';
-import { Theme, ThemeJson } from '../../../themes/Theme';
+import { ThemeJson } from '../../../themes/Theme';
 
 export default ( { theme }: { theme: ThemeJson } ) => {
 	const css = `

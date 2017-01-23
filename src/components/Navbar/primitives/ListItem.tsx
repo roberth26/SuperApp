@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { EventHandler, MouseEvent } from '@types/react';
-import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
-import { Theme } from '../../../themes/Theme';
 import Link from './Link';
 
 const ListItem = styled.li`

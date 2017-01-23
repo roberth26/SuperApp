@@ -1,13 +1,11 @@
 import * as React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { observer, inject } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
-import { Match, Miss, Link, BrowserRouter } from 'react-router';
-import { Theme, themeToJson } from '../../themes/Theme';
+import { Match, Miss, BrowserRouter } from 'react-router';
+import { themeToJson } from '../../themes/Theme';
 import Store from '../../stores/Store';
 import Header from '../Header/Header';
-import Card from '../primitives/Card';
-import Container from '../primitives/Card';
 import User from '../../data-types/User';
 import UserPage from '../UserPage/UserPage';
 import Wrapper from './primitives/Wrapper';
@@ -28,30 +26,33 @@ interface AppProps {
 class App extends React.Component<AppProps, any> {
 	render() {
 		const { store } = this.props;
-		let userPage = null;
-		if ( store.users.length ) {
-			userPage = store.users.map( ( user: User, index: number ) => (
-				index ? (
-					<Match
-						pattern={`/${user.getNameUrlFriendly()}`}
-						render={renderUserPage.bind( null, user )}
-						key={user.getId()}
-					/>
-				) : (
-					<Match
-						pattern="/"
-						exactly
-						render={renderUserPage.bind( null, user )}
-						key={user.getId()}
-					/>
-				)
-			));
-		} else {
+		const { users, activeUser, defaultTheme } = store;
+
+		if ( !users.length ) {
 			return null;
 		}
-		const theme = store.activeUser
-			? themeToJson( store.activeUser.theme )
-			: themeToJson( store.defaultTheme );
+
+		const userPage = users.map( ( user: User, index: number ) => (
+			index ? (
+				<Match
+					pattern={`/${user.getNameUrlFriendly()}`}
+					render={renderUserPage.bind( null, user )}
+					key={user.getId()}
+				/>
+			) : (
+				<Match
+					pattern="/"
+					exactly
+					render={renderUserPage.bind( null, user )}
+					key={user.getId()}
+				/>
+			)
+		));
+
+		const theme = activeUser
+			? themeToJson( activeUser.theme )
+			: themeToJson( defaultTheme );
+
 		return (
 	   		<BrowserRouter>
 			   <ThemeProvider theme={theme}>
@@ -60,7 +61,7 @@ class App extends React.Component<AppProps, any> {
 						<GlobalStyles theme={theme} />
 						<Header />
 						{userPage}
-						<Miss render={renderUserPage.bind( null, store.users ? store.users[ 0 ] : null )} />
+						<Miss render={renderUserPage.bind( null, users )} />
 					</Wrapper>
 				</ThemeProvider>
 	    	</BrowserRouter>

@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { EventHandler, MouseEvent } from '@types/react';
 import { inject, observer } from 'mobx-react';
-import { Link, Match, Redirect } from 'react-router';
+import { Link } from 'react-router';
 import Store from '../../stores/Store';
 import User from '../../data-types/User';
 import Wrapper from './primitives/Wrapper';
@@ -19,11 +18,14 @@ const renderListItem = ( user: User, props ) => (
 );
 
 const renderListItems = ( store: Store ) => {
-    if ( !store.users.length ) {
+    const { users } = store;
+
+    if ( !users.length ) {
         return null;
     }
+
     return (
-		store.users.map( ( user: User, index: number ) => (
+		users.map( ( user: User, index: number ) => (
             index ? (
                 <Link
                     to={`/${user.getNameUrlFriendly()}`}

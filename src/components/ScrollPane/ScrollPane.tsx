@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { inject, observer } from 'mobx-react';
 import Wrapper from './primitives/Wrapper';
 
 interface ScrollPaneProps {

@@ -34,6 +34,10 @@
     ],
     "one-variable-per-declaration": [
       false
+    ],
+    "no-unused-variable": [
+      true,
+      "react"
     ]
   }
 }

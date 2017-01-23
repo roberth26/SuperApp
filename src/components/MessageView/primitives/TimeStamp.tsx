@@ -1,29 +1,20 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import styled from 'styled-components';
-import Store from '../../../stores/Store';
+import { Theme } from '../../../themes/Theme';
 
 const TimeStamp = styled.div`
     clear: both;
     float: ${props => props.isAuthor ? 'right' : 'left'};
     font-size: .8rem;
     margin-bottom: 5px;
-    color: ${props => props.theme.color.font.toCss()};
+    color: ${props => props.theme.color.font};
 `;
 
 interface TimeStampProps {
-    store?: Store;
     children?: any;
     isAuthor: boolean;
+    theme?: Theme;
 }
 
-export default inject( 'store' )( observer(
-    ( { store, children, isAuthor }: TimeStampProps ) => (
-        <TimeStamp
-            theme={store.activeTheme}
-            isAuthor={isAuthor}
-        >
-            {children}
-        </TimeStamp>
-    )
-));
+export default ( props: TimeStampProps ) => <TimeStamp {...props} />;

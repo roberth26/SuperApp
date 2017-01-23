@@ -1,16 +1,12 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import Store from '../../stores/Store';
 import Wrapper from './primitives/Wrapper';
 
 interface ScrollPaneProps {
-    store?: Store;
     children?: any;
 }
 
-@inject( 'store' )
-@observer
-class ScrollPane extends React.Component<ScrollPaneProps, any> {
+export default class ScrollPane extends React.Component<ScrollPaneProps, any> {
     scrollPane: Element;
 
     setScrollPane = ( scrollPane ) => {
@@ -26,16 +22,11 @@ class ScrollPane extends React.Component<ScrollPaneProps, any> {
     }
 
     render() {
-        const { children, store } = this.props;
+        const { children } = this.props;
         return (
-            <Wrapper
-                innerRef={this.setScrollPane}
-                theme={store.activeTheme}
-            >
+            <Wrapper innerRef={this.setScrollPane}>
                 {children}
             </Wrapper>
         );
     }
 }
-
-export default ScrollPane;

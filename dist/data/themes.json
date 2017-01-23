@@ -1,13 +1,13 @@
 [
     {
         "id": "H1F7Z-NxDg",
-        "name": "Midnight",
+        "name": "Dusk",
         "color": {
-            "background": [ 40, 40, 40 ],
-            "primary": [ 255, 180, 0 ],
-            "secondary": [ 60, 60, 60 ],
-            "font": [ 220, 220, 220 ],
-            "secondaryFont": [ 0, 0, 0 ]
+            "background": "rgb( 40, 40, 40 )",
+            "primary": "rgb( 255, 180, 0 )",
+            "secondary": "rgb( 60, 60, 60 )",
+            "font": "rgb( 220, 220, 220 )",
+            "secondaryFont": "rgb( 0, 0, 0 )"
         },
         "shading": {
             "boxShadow": "0 1px 4px rgba( 0, 0, 0, .4 )"
@@ -16,6 +16,28 @@
             "borderBox": false,
             "gutter": 20,
             "maxWidth": 940
+        },
+        "font": {
+            "primary": "verdana"
+        }
+    },
+    {
+        "id": "S1I_uctZDg",
+        "name": "Mystery Machine",
+        "color": {
+            "background": "rgb( 43, 131, 167 )",
+            "primary": "rgb( 255, 140, 0 )",
+            "secondary": "rgb( 118, 192, 36 )",
+            "font": "rgb( 0, 0, 0 )",
+            "secondaryFont": "rgb( 255, 255, 255 )"
+        },
+        "shading": {
+            "boxShadow": "0 1px 4px rgba( 0, 0, 0, .4 )"
+        },
+        "sizing": {
+            "borderBox": true,
+            "gutter": 30,
+            "maxWidth": 768
         },
         "font": {
             "primary": "verdana"

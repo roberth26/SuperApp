@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 export default styled.div`
     background-color: ${props => props.isAuthor
-        ? props.theme.color.secondary.toCss()
-        : props.theme.color.primary.toCss()
+        ? props.theme.color.secondary
+        : props.theme.color.primary
     };
     color: ${props => props.isAuthor
-        ? props.theme.color.font.toCss()
-        : props.theme.color.secondaryFont.toCss()
+        ? props.theme.color.font
+        : props.theme.color.secondaryFont
     };
     float: ${props => props.isAuthor ? 'right' : 'left'};
     clear: both;

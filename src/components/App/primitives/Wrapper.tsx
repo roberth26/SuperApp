@@ -6,5 +6,5 @@ export default styled.div`
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background-color: ${props => props.theme.color.background.toCss()};
+	background-color: ${props => props.theme.color.background};
 `;

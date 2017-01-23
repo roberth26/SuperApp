@@ -32,11 +32,11 @@ export interface ThemeJson {
 	name: string;
 
 	color: {
-		background: number[],
-		primary: number[],
-		secondary: number[],
-		font: number[],
-		secondaryFont: number[],
+		background: string,
+		primary: string,
+		secondary: string,
+		font: string,
+		secondaryFont: string
 	};
 
 	shading: {
@@ -57,11 +57,28 @@ export interface ThemeJson {
 export function themeFromJson( json ): Theme {
 	const theme = json;
 	theme.color = {
-		background: Color.fromArray( json.color.background ),
-		primary: Color.fromArray( json.color.primary ),
-		secondary: Color.fromArray( json.color.secondary ),
-		font: Color.fromArray( json.color.font ),
-		secondaryFont: Color.fromArray( json.color.secondaryFont )
+		background: Color.fromCssRgb( json.color.background ),
+		primary: Color.fromCssRgb( json.color.primary ),
+		secondary: Color.fromCssRgb( json.color.secondary ),
+		font: Color.fromCssRgb( json.color.font ),
+		secondaryFont: Color.fromCssRgb( json.color.secondaryFont )
 	};
 	return theme;
+}
+
+export function themeToJson( theme: Theme ): ThemeJson {
+	return {
+		id: theme.id,
+		name: theme.name,
+		color: {
+			background: theme.color.background.toCss(),
+			primary: theme.color.primary.toCss(),
+			secondary: theme.color.secondary.toCss(),
+			font: theme.color.font.toCss(),
+			secondaryFont: theme.color.secondaryFont.toCss()
+		},
+		shading: theme.shading,
+		sizing: theme.sizing,
+		font: theme.font
+	};
 }

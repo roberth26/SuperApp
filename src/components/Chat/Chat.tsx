@@ -34,7 +34,7 @@ interface ChatProps {
 
 function Chat( { store, user }: ChatProps ) {
     return (
-        <Wrapper theme={store.activeTheme}>
+        <Wrapper>
             <ScrollPane>
                 {renderMessages( store.messages, user )}
             </ScrollPane>

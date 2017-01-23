@@ -1,8 +1,9 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import { observer, inject } from 'mobx-react';
+import DevTools from 'mobx-react-devtools';
 import { Match, Miss, Link, BrowserRouter } from 'react-router';
-import { Theme } from '../../themes/Theme';
+import { Theme, themeToJson } from '../../themes/Theme';
 import Store from '../../stores/Store';
 import Header from '../Header/Header';
 import Card from '../primitives/Card';
@@ -29,34 +30,39 @@ class App extends React.Component<AppProps, any> {
 		const { store } = this.props;
 		let userPage = null;
 		if ( store.users.length ) {
-			userPage = store.users.map( ( user: User, index: number ) => {
-				if ( index === 0 ) {
-					return (
-						<Match
-							pattern="/"
-							exactly
-							render={renderUserPage.bind( null, user )}
-							key={user.getId()}
-						/>
-					);
-				}
-				return (
+			userPage = store.users.map( ( user: User, index: number ) => (
+				index ? (
 					<Match
 						pattern={`/${user.getNameUrlFriendly()}`}
 						render={renderUserPage.bind( null, user )}
 						key={user.getId()}
 					/>
-				);
-			});
+				) : (
+					<Match
+						pattern="/"
+						exactly
+						render={renderUserPage.bind( null, user )}
+						key={user.getId()}
+					/>
+				)
+			));
+		} else {
+			return null;
 		}
+		const theme = store.activeUser
+			? themeToJson( store.activeUser.theme )
+			: themeToJson( store.defaultTheme );
 		return (
 	   		<BrowserRouter>
-		    	<Wrapper theme={store.activeTheme}>
-		    		<GlobalStyles />
-		    		<Header />
-					{userPage}
-					<Miss render={renderUserPage.bind( null, store.users ? store.users[ 0 ] : null )} />
-	    		</Wrapper>
+			   <ThemeProvider theme={theme}>
+					<Wrapper>
+						<DevTools />
+						<GlobalStyles theme={theme} />
+						<Header />
+						{userPage}
+						<Miss render={renderUserPage.bind( null, store.users ? store.users[ 0 ] : null )} />
+					</Wrapper>
+				</ThemeProvider>
 	    	</BrowserRouter>
 	    );
 	}

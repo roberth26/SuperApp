@@ -6,18 +6,12 @@ import Container from '../primitives/Container';
 import Navbar from '../Navbar/Navbar';
 import Wrapper from './primitives/Wrapper';
 
-interface HeaderProps {
-	store?: Store;
-}
-
-function Header( { store }: HeaderProps ) {
+export default function Header() {
 	return (
-		<Wrapper theme={store.activeTheme}>
+		<Wrapper>
 			<Container>
 				<Navbar />
 			</Container>
 		</Wrapper>
 	);
 }
-
-export default inject( 'store' )( observer( Header ) );

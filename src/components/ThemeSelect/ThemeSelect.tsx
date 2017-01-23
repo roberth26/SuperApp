@@ -5,23 +5,26 @@ import Store from '../../stores/Store';
 import { Theme } from '../../themes/Theme';
 
 interface ThemeSelectProps {
-	store?: Store;
+	activeTheme: Theme;
+	themes: Theme[];
+	onChange: ( newTheme: Theme ) => void;
 }
 
-function ThemeSelect( { store }: ThemeSelectProps ) {
-	const { activeTheme, themes } = store;
+function ThemeSelect( { activeTheme, themes, onChange }: ThemeSelectProps ) {
 	const activeThemeIndex = themes.findIndex( theme => (
 		theme.constructor.name === activeTheme.constructor.name
 	));
 
 	const handleChange = ( event: FormEvent<HTMLSelectElement> ) => {
 		const select = ( event.nativeEvent.target as HTMLInputElement );
-		store.setActiveTheme( themes[ select.value ] );
+		onChange(
+			themes.find( theme => select.value === theme.id )
+		);
 	};
 
 	const themeOptions = themes.map( ( theme: Theme, index: number ) => (
 		<option
-			value={index}
+			value={theme.id}
 			key={theme.id}
 		>
 			{theme.name}
@@ -30,7 +33,7 @@ function ThemeSelect( { store }: ThemeSelectProps ) {
 
 	return (
 		<select
-			value={activeThemeIndex}
+			value={activeTheme.id}
 			onChange={handleChange}
 		>
 			{themeOptions}

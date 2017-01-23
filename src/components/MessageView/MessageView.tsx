@@ -10,12 +10,11 @@ import TimeStamp from './primitives/TimeStamp';
 import Wrapper from './primitives/Wrapper';
 
 interface MessageViewProps {
-    store?: Store;
     message: Message;
     author: User;
 }
 
-function MessageView( { message, author, store }: MessageViewProps ) {
+export default function MessageView( { message, author }: MessageViewProps ) {
     const isAuthor = message.getAuthor() === author;
     const name = isAuthor
         ? null
@@ -27,7 +26,6 @@ function MessageView( { message, author, store }: MessageViewProps ) {
                 {`${name ? `${name} - ${date}` : date}`}
             </TimeStamp>
             <Wrapper
-                theme={store.activeTheme}
                 isAuthor={isAuthor}
                 loopKey={message.getId()}
             >
@@ -36,5 +34,3 @@ function MessageView( { message, author, store }: MessageViewProps ) {
         </div>
     );
 }
-
-export default inject( 'store' )( observer( MessageView ) );

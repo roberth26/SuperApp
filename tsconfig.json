@@ -6,11 +6,9 @@
     "noImplicitAny": false,
     "removeComments": true,
     "experimentalDecorators": true,
-    //"noLib": false,
     "jsx": "react",
     "outDir": "dist",
-    "lib": [ "es6", "dom" ],
-    "types": [ "react", "react-dom" ]
+    "lib": [ "es6", "dom" ]
   },
   "exclude": [
     "node_modules",

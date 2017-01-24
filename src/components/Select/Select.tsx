@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { FormEvent } from '@types/react';
 import KeyValuePair from '../../data-types/KeyValuePair';
 
 interface SelectProps<K, V> {
@@ -9,7 +8,7 @@ interface SelectProps<K, V> {
 }
 
 export default function Select( { selectedItem, items, onChange }: SelectProps<any, any> ) {
-	const handleChange = ( event: FormEvent<HTMLSelectElement> ) => {
+	const handleChange = ( event: React.FormEvent<HTMLSelectElement> ) => {
 		const select = ( event.nativeEvent.target as HTMLInputElement );
 		const matchingItem = items.find( ( item: KeyValuePair<any, any> ) => item.key === select.value );
 		onChange( matchingItem );

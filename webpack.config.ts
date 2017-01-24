@@ -18,12 +18,11 @@ module.exports = {
 				use: [
 					{
 						loader: 'tslint-loader',
-
 					}
 				]
 			},
 			{
-				test: /\.tsx?$/,
+				test: /\.ts[x]?$/,
 				use: [
 					{
 						loader: 'react-hot-loader'

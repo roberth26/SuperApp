@@ -1,35 +1,28 @@
 import * as React from 'react';
 import * as Moment from 'moment';
 import Message from '../../data-types/Message';
-import User from '../../data-types/User';
 import TimeStamp from './primitives/TimeStamp';
 import Wrapper from './primitives/Wrapper';
+import Bubble from './primitives/Bubble';
 
 interface MessageViewProps {
     message: Message;
-    author: User;
+    selfAuthored: boolean;
 }
 
-export default function MessageView( { message, author }: MessageViewProps ) {
-    const isAuthor = message.getAuthor() === author;
-
-    const name = isAuthor
-        ? null
-        : message.getAuthor().getName().split( ' ' )[ 0 ];
-
+export default function MessageView( { message, selfAuthored }: MessageViewProps ) {
     const date = Moment( message.getDate() ).format( 'h:mma' );
+    const firstName = message.getAuthor().getName().split( ' ' )[ 0 ];
+    const meta = selfAuthored ? date : `${firstName} - ${date}`;
 
     return (
-        <div>
-            <TimeStamp isAuthor={isAuthor}>
-                {`${name ? `${name} - ${date}` : date}`}
+        <Wrapper alignRight={selfAuthored}>
+            <TimeStamp>
+                {meta}
             </TimeStamp>
-            <Wrapper
-                isAuthor={isAuthor}
-                loopKey={message.getId()}
-            >
+            <Bubble>
                 {message.getText()}
-            </Wrapper>
-        </div>
+            </Bubble>
+        </Wrapper>
     );
 }

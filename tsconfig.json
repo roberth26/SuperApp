@@ -7,7 +7,6 @@
     "removeComments": true,
     "experimentalDecorators": true,
     "jsx": "react",
-    "outDir": "dist",
     "lib": [ "es6", "dom" ]
   },
   "exclude": [

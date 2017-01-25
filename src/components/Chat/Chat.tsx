@@ -19,7 +19,7 @@ const renderMessages = ( messages: Message[], user: User ) => (
                 <MessageView
                     key={message.getId()}
                     message={message}
-                    author={user}
+                    selfAuthored={user === message.getAuthor()}
                 />
             ))
         )

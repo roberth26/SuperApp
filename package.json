@@ -52,6 +52,7 @@
     "testRegex": "/tests/.*\\.(ts|tsx)$"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev": "webpack-dev-server"
   }
 }

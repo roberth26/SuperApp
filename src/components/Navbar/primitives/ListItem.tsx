@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { EventHandler, MouseEvent } from '@types/react';
 import styled from 'styled-components';
-import Link from './Link';
+import { Theme } from '../../../Themes/Theme';
 
 const ListItem = styled.li`
 	display: inline-block;
@@ -9,14 +8,8 @@ const ListItem = styled.li`
 `;
 
 interface ListItemProps {
-	children: any;
-	href: string;
-	onClick: EventHandler<MouseEvent<HTMLAnchorElement>>;
-	isActive: boolean;
+	children?: any;
+	theme?: Theme;
 }
 
-export default ( props: ListItemProps ) => (
-	<ListItem>
-		<Link {...props} />
-	</ListItem>
-);
+export default ( props: ListItemProps ) => <ListItem {...props} />;

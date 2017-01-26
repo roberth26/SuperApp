@@ -11,6 +11,8 @@ const Link = styled.a`
 interface LinkProps {
     children?: React.ReactChildren;
     theme?: Theme;
+	href: string;
+	onClick: React.EventHandler<React.MouseEvent<HTMLAnchorElement>>;
 	isActive: boolean;
 }
 

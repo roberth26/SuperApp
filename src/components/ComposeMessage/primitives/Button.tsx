@@ -1,6 +1,8 @@
+import * as React from 'react';
 import styled from 'styled-components';
+import { Theme } from '../../../Themes/Theme';
 
-export default styled.button`
+const Button = styled.button`
     appearance: none;
     border: 0;
     flex-basis: 100px;
@@ -9,3 +11,11 @@ export default styled.button`
     outline: 0;
     cursor: pointer;
 `;
+
+interface ButtonProps {
+    type: string;
+    children?: React.ReactChildren;
+    theme?: Theme;
+}
+
+export default ( props: ButtonProps ) => <Button {...props} />;

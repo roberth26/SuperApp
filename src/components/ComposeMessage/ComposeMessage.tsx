@@ -58,7 +58,7 @@ class ComposeMessage extends React.Component<ComposeMessageProps, any> {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Input
-                    ref={this.storeInputElement}
+                    innerRef={this.storeInputElement}
                     value={this.state.messageText}
                     onChange={this.handleInputChange}
                     onKeyDown={this.handleKeyDown}

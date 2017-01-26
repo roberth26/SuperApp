@@ -1,9 +1,16 @@
+import * as React from 'react';
 import styled from 'styled-components';
+import { Theme } from '../../../Themes/Theme';
 
-export default styled.div`
-    clear: both;
-    float: ${props => props.isAuthor ? 'right' : 'left'};
+const TimeStamp = styled.div`
     font-size: .8rem;
     margin-bottom: 5px;
     color: ${props => props.theme.color.font};
 `;
+
+interface TimeStampProps {
+    children?: React.ReactChildren;
+    theme?: Theme;
+}
+
+export default ( props: TimeStampProps ) => <TimeStamp {...props} />;

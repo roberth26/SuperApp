@@ -4,7 +4,7 @@
         "name": "Dusk",
         "color": {
             "background": "rgb( 40, 40, 40 )",
-            "primary": "rgb( 255, 180, 0 )",
+            "primary": "rgb( 255, 160, 0 )",
             "secondary": "rgb( 60, 60, 60 )",
             "font": "rgb( 220, 220, 220 )",
             "secondaryFont": "rgb( 0, 0, 0 )"

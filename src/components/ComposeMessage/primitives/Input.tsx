@@ -1,6 +1,8 @@
+import * as React from 'react';
 import styled from 'styled-components';
+import { Theme } from '../../../Themes/Theme';
 
-export default styled.input`
+const Input = styled.input`
     appearance: none;
     border: 0;
     background-color: ${props => props.theme.color.background};
@@ -19,3 +21,13 @@ export default styled.input`
         border-right: 0;
     }
 `;
+
+interface InputProps {
+    theme?: Theme;
+    value: string;
+    innerRef: ( el: Element ) => void;
+    onChange: ( event: React.FormEvent<HTMLInputElement> ) => void;
+    onKeyDown: ( event: KeyboardEvent ) => void;
+}
+
+export default ( props: InputProps ) => <Input {...props} />;

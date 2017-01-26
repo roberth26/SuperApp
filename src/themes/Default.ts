@@ -13,7 +13,7 @@ export default class Default implements Theme {
 
 	color = {
 		background: new Color( 220, 220, 220 ),
-		primary: new Color( 0, 77, 155 ),
+		primary: new Color( 0, 150, 220 ),
 		secondary: new Color( 255, 255, 255 ),
 		font: new Color( 60, 60, 60 ),
 		secondaryFont: new Color( 255, 255, 255 )

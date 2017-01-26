@@ -1,21 +1,30 @@
+import * as React from 'react';
 import styled from 'styled-components';
+import { Theme } from '../../../Themes/Theme';
 
-export default styled.div`
-    background-color: ${props => props.isAuthor
+const Bubble = styled.div`
+    background-color: ${props => props.selfAuthored
         ? props.theme.color.secondary
         : props.theme.color.primary
     };
-    color: ${props => props.isAuthor
+    color: ${props => props.selfAuthored
         ? props.theme.color.font
         : props.theme.color.secondaryFont
     };
-    float: ${props => props.isAuthor ? 'right' : 'left'};
-    clear: both;
-    margin-bottom: ${props => props.theme.sizing.gutter / 2}px;
     padding: ${props => props.theme.sizing.gutter / 2}px;
-    border-radius: ${props => props.isAuthor
+    border-radius: ${props => props.selfAuthored
         ? '5px 0 5px 5px'
         : '0 5px 5px 5px'
     };
     box-shadow: ${props => props.theme.shading.boxShadow};
+    cursor: pointer;
 `;
+
+interface BubbleProps {
+    selfAuthored?: boolean;
+    children?: React.ReactChildren;
+    theme?: Theme;
+    onClick?: () => void;
+}
+
+export default ( props: BubbleProps ) => <Bubble {...props} />;

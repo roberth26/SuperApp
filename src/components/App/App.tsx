@@ -10,6 +10,7 @@ import User from '../../data-types/User';
 import UserPage from '../UserPage/UserPage';
 import Wrapper from './primitives/Wrapper';
 import GlobalStyles from './primitives/GlobalStyles';
+import Lightbox from '../Lightbox/Lightbox';
 
 const renderUserPage = ( user: User ) => (
 	user
@@ -57,11 +58,13 @@ class App extends React.Component<AppProps, any> {
 	   		<BrowserRouter>
 			   <ThemeProvider theme={theme}>
 					<Wrapper>
-						<DevTools />
-						<GlobalStyles theme={theme} />
-						<Header />
-						{userPage}
-						<Miss render={renderUserPage.bind( null, users )} />
+						<Lightbox>
+							<DevTools />
+							<GlobalStyles theme={theme} />
+							<Header />
+							{userPage}
+							<Miss render={renderUserPage.bind( null, users )} />
+						</Lightbox>
 					</Wrapper>
 				</ThemeProvider>
 	    	</BrowserRouter>

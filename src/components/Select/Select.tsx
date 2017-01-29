@@ -7,7 +7,7 @@ interface SelectProps {
 	onChange: ( newItem: KeyValuePair<string, string> ) => void;
 }
 
-export default function Select<T>( { selectedItem, items, onChange }: SelectProps ) {
+export default function Select( { selectedItem, items, onChange }: SelectProps ) {
 	const handleChange = ( event: React.FormEvent<HTMLSelectElement> ) => {
 		const select = ( event.nativeEvent.target as HTMLInputElement );
 		const matchingItem = items.find(

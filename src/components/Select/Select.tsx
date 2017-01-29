@@ -1,20 +1,22 @@
 import * as React from 'react';
 import KeyValuePair from '../../data-types/KeyValuePair';
 
-interface SelectProps<K, V> {
-	selectedItem: KeyValuePair<K, V>;
-	items: Array<KeyValuePair<K, V>>;
-	onChange: ( newItem: KeyValuePair<K, V> ) => void;
+interface SelectProps {
+	selectedItem: KeyValuePair<string, string>;
+	items: Array<KeyValuePair<string, string>>;
+	onChange: ( newItem: KeyValuePair<string, string> ) => void;
 }
 
-export default function Select( { selectedItem, items, onChange }: SelectProps<any, any> ) {
+export default function Select<T>( { selectedItem, items, onChange }: SelectProps ) {
 	const handleChange = ( event: React.FormEvent<HTMLSelectElement> ) => {
 		const select = ( event.nativeEvent.target as HTMLInputElement );
-		const matchingItem = items.find( ( item: KeyValuePair<any, any> ) => item.key === select.value );
+		const matchingItem = items.find(
+			( item: KeyValuePair<string, string> ) => item.key === select.value
+		);
 		onChange( matchingItem );
 	};
 
-	const options = items.map( ( item: KeyValuePair<any, any>, index: number ) => (
+	const options = items.map( ( item: KeyValuePair<string, string>, index: number ) => (
 		<option
 			value={item.key}
 			key={item.key}

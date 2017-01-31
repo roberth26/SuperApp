@@ -54,7 +54,7 @@ class ComposeMessage extends React.Component<ComposeMessageProps, any> {
         this.input = input;
     }
 
-	render() {
+    render() {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Input

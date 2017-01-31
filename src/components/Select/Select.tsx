@@ -9,9 +9,9 @@ interface SelectProps<T> {
 export default class Select<T> extends React.Component<SelectProps<T>, any> {
 	handleChange = ( event: React.FormEvent<HTMLSelectElement> ) => {
 		const { items, onChange } = this.props;
-		const select = ( event.nativeEvent.target as HTMLInputElement );
-		const selectedItem = items.find( item => item.toString() === select.value );
-		onChange( selectedItem );
+		const select = ( event.nativeEvent.target as HTMLSelectElement );
+		const selectedIndex = items.findIndex( item => item.toString() === select.value );
+		onChange( items[ selectedIndex ] );
 	}
 
 	render() {
@@ -19,18 +19,16 @@ export default class Select<T> extends React.Component<SelectProps<T>, any> {
 
 		const options = items.map( ( item: T, index: number ) => (
 			<option
-				value={index}
+				value={item.toString()}
 				key={item.toString()}
 			>
 				{item.toString()}
 			</option>
 		));
 
-		const value = items.findIndex( item => item === selectedItem );
-
 		return (
 			<select
-				value={value}
+				value={selectedItem.toString()}
 				onChange={this.handleChange}
 			>
 				{options}

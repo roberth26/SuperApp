@@ -7,7 +7,7 @@ import User from '../../data-types/User';
 import Chat from '../Chat/Chat';
 import { Theme } from '../../themes/Theme';
 import Select from '../Select/Select';
-import KeyValuePair from '../../data-types/KeyValuePair';
+const ThemeSelect = Select as new () => Select<Theme>;
 import UserMeta from './primitives/UserMeta';
 
 interface UserPageProps {
@@ -18,18 +18,8 @@ interface UserPageProps {
 function UserPage( { store, user }: UserPageProps ) {
     const { themes } = store;
 
-    const selectedTheme = new KeyValuePair<string, string>(
-        user.theme.id,
-        user.theme.name
-    );
-
-    const themesList = themes.map( ( theme: Theme ) => (
-        new KeyValuePair( theme.id, theme.name )
-    ));
-
-    const handleThemeChange = ( newTheme: KeyValuePair<string, string> ) => {
-        const matchingTheme = themes.find( ( theme: Theme ) => theme.name === newTheme.value );
-        user.setTheme( matchingTheme );
+    const handleThemeChange = ( newTheme: Theme ) => {
+        user.setTheme( newTheme );
     };
 
     return (
@@ -37,9 +27,9 @@ function UserPage( { store, user }: UserPageProps ) {
             <Card>
                 <UserMeta>
                     {user.getName()}
-                    <Select
-                        selectedItem={selectedTheme}
-                        items={themesList}
+                    <ThemeSelect
+                        selectedItem={user.theme}
+                        items={themes}
                         onChange={handleThemeChange}
                     />
                 </UserMeta>

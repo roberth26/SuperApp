@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import Select from '../../../components/Select/Select';
-import KeyValuePair from '../../../data-types/KeyValuePair';
 
 describe( '<Select />', () => {
     it( 'should render the items', () => {
         // arrange
-        const items = new Array<KeyValuePair<string, string>>(
-            new KeyValuePair( 'test', 'assaasasas' ),
-            new KeyValuePair( 'test', 'assaasasas' )
+        const items = new Array<string>(
+            'test',
+            'another',
+            'something'
         );
+        const StringSelect = Select as new () => Select<string>;
 
         // act
         const select = shallow(
-            <Select
+            <StringSelect
                 items={items}
                 selectedItem={items[ 0 ]}
                 onChange={() => null}

@@ -32,4 +32,8 @@ export default class Default implements Theme {
 	font = {
 		primary: 'arial'
 	};
+
+	toString() {
+		return this.name;
+	}
 };

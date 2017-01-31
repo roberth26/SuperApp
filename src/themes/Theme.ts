@@ -25,6 +25,8 @@ export interface Theme {
 	font: {
 		primary: string
 	};
+
+	toString(): string;
 }
 
 export interface ThemeJson {
@@ -63,6 +65,7 @@ export function themeFromJson( json ): Theme {
 		font: Color.fromCssRgb( json.color.font ),
 		secondaryFont: Color.fromCssRgb( json.color.secondaryFont )
 	};
+	theme.toString = () => theme.name;
 	return theme;
 }
 

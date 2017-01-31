@@ -10,7 +10,8 @@ export default class Select<T> extends React.Component<SelectProps<T>, any> {
 	handleChange = ( event: React.FormEvent<HTMLSelectElement> ) => {
 		const { items, onChange } = this.props;
 		const select = ( event.nativeEvent.target as HTMLInputElement );
-		onChange( items[ select.value ] );
+		const selectedItem = items.find( item => item.toString() === select.value );
+		onChange( selectedItem );
 	}
 
 	render() {

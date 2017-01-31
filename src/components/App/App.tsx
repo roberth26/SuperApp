@@ -13,9 +13,7 @@ import GlobalStyles from './primitives/GlobalStyles';
 import Lightbox from '../Lightbox/Lightbox';
 
 const renderUserPage = ( user: User ) => (
-	user
-	? <UserPage user={user} />
-	: null
+	user ? <UserPage user={user} /> : null
 );
 
 interface AppProps {

@@ -21,7 +21,48 @@ describe( '<Select />', () => {
             />
         );
 
+        const foundItems = select.find( 'option' )
+            .map( option => option.props().children ) as string[];
+
         // assert
-        expect( select.find( 'option' ).length ).toEqual( items.length );
+        expect( foundItems ).toEqual( items );
+    });
+
+    it( 'should return the selected item', () => {
+        // arrange
+        let selectedItem = 'test';
+        const expectedItem = 'something';
+        const items = new Array<string>(
+            selectedItem,
+            'another',
+            expectedItem
+        );
+        function handleChange( newItem: string ) {
+            selectedItem = newItem;
+        };
+
+        const StringSelect = Select as new () => Select<string>;
+
+        const select = shallow(
+            <StringSelect
+                items={items}
+                selectedItem={selectedItem}
+                onChange={handleChange}
+            />
+        );
+
+        const eventMock = {
+            nativeEvent: {
+                target: {
+                    value : expectedItem
+                }
+            }
+        };
+
+        // act
+        select.find( 'select' ).simulate( 'change', eventMock );
+
+        // assert
+        expect( selectedItem ).toEqual( expectedItem );
     });
 });

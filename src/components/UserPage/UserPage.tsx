@@ -9,6 +9,7 @@ import { Theme } from '../../themes/Theme';
 import Select from '../Select/Select';
 const ThemeSelect = Select as new () => Select<Theme>;
 import UserMeta from './primitives/UserMeta';
+import KeyValuePair from '../../data-types/KeyValuePair';
 
 interface UserPageProps {
     store?: Store;
@@ -18,9 +19,18 @@ interface UserPageProps {
 function UserPage( { store, user }: UserPageProps ) {
     const { themes } = store;
 
-    const handleThemeChange = ( newTheme: Theme ) => {
-        user.setTheme( newTheme );
+    const handleThemeChange = ( { value: theme }: KeyValuePair<string, Theme> ) => {
+        user.setTheme( theme );
     };
+
+    const selectedTheme = new KeyValuePair<string, Theme>(
+        user.theme.name,
+        user.theme
+    );
+
+    const allThemes = themes.map(
+        theme => new KeyValuePair<string, Theme>( theme.name, theme )
+    );
 
     return (
         <Container>
@@ -28,8 +38,8 @@ function UserPage( { store, user }: UserPageProps ) {
                 <UserMeta>
                     {user.getName()}
                     <ThemeSelect
-                        selectedItem={user.theme}
-                        items={themes}
+                        selectedItem={selectedTheme}
+                        items={allThemes}
                         onChange={handleThemeChange}
                     />
                 </UserMeta>

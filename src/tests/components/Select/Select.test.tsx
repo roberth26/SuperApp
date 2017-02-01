@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import Select from '../../../components/Select/Select';
+import KeyValuePair from '../../../data-types/KeyValuePair';
 
 describe( '<Select />', () => {
     it( 'should render the items', () => {
         // arrange
-        const items = new Array<string>(
-            'test',
-            'another',
-            'something'
+        const items = new Array<KeyValuePair<string, string>>(
+            new KeyValuePair( 'test', 'test' ),
+            new KeyValuePair( 'another', 'another' ),
+            new KeyValuePair( 'something', 'something' ),
         );
         const StringSelect = Select as new () => Select<string>;
 
@@ -21,8 +22,12 @@ describe( '<Select />', () => {
             />
         );
 
-        const foundItems = select.find( 'option' )
-            .map( option => option.props().children ) as string[];
+        const foundItems = select.find( 'option' ).map(
+            option => new KeyValuePair<string, string>(
+                option.props().value as string,
+                option.props().children as string
+            )
+        );
 
         // assert
         expect( foundItems ).toEqual( items );
@@ -30,14 +35,14 @@ describe( '<Select />', () => {
 
     it( 'should return the selected item', () => {
         // arrange
-        let selectedItem = 'test';
-        const expectedItem = 'something';
-        const items = new Array<string>(
+        let selectedItem = new KeyValuePair<string, string>( 'test', 'test' );
+        const expectedItem = new KeyValuePair<string, string>( 'something', 'something' );
+        const items = new Array<KeyValuePair<string, string>>(
             selectedItem,
-            'another',
+            new KeyValuePair<string, string>( 'another', 'another' ),
             expectedItem
         );
-        function handleChange( newItem: string ) {
+        function handleChange( newItem: KeyValuePair<string, string> ) {
             selectedItem = newItem;
         };
 
@@ -54,7 +59,7 @@ describe( '<Select />', () => {
         const eventMock = {
             nativeEvent: {
                 target: {
-                    value : expectedItem
+                    value : expectedItem.key
                 }
             }
         };
